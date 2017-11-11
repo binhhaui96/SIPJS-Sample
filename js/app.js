@@ -2,15 +2,14 @@ var simple;
 var ua;
 var app = angular.module('app', []);
 app.controller('indexCtrl', function ($scope) {
-    $scope.name = 'phongdm';
-    $scope.mysip = '3000@nguyenphuongha.com';
-    $scope.othersip = '3600@nguyenphuongha.com';
-    $scope.auth_username = '3000';
-    $scope.password = '3000';
+    $scope.name = 'binhtroi';
+    $scope.mysip = '3600@nguyenphuongha.com';
+    $scope.othersip = '3000@nguyenphuongha.com';
+    $scope.auth_username = '3600';
+    $scope.password = '3600';
     $scope.ws_server = 'ws://nguyenphuongha.com:5066';
     $scope.logs = [];
-
-    $scope.is_registed = true;
+    $scope.is_registed = false;
 
     appendLog = function (logType, logMessage) {
         var log = {};
@@ -54,11 +53,23 @@ app.controller('indexCtrl', function ($scope) {
             $scope.$apply();
         });
 
+        ua.on('invite',function(session)
+        {
+            session.accept({
+                media: {
+                    constraints: {
+                        audio: true,
+                        video: false
+                    }
+                }
+            });
+        });
         simple = new SIP.WebRTC.Simple({
             ua: ua,
             media: {
                 remote: {
-                    video: document.getElementById('remoteVideoFrame')
+                    video: document.getElementById('remoteVideoFrame'),
+                  
                 }, local: {
                     video: document.getElementById('localVideoFrame')
                 }
@@ -73,6 +84,7 @@ app.controller('indexCtrl', function ($scope) {
     }
 
     $scope.unregist = function () {
+      
         ua.unregister();
     }
 
