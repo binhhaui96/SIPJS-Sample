@@ -10,6 +10,8 @@ app.controller('indexCtrl', function ($scope) {
     $scope.ws_server = 'ws://nguyenphuongha.com:5066';
     $scope.logs = [];
 
+    $scope.is_registed = true;
+
     appendLog = function (logType, logMessage) {
         var log = {};
         log['type'] = logType;
@@ -26,7 +28,7 @@ app.controller('indexCtrl', function ($scope) {
             authorizationUser: $scope.auth_username,
             password: $scope.password,
             displayName: $scope.name,
-            register: true
+            register: false
         });
 
         // Handle UA
@@ -43,10 +45,12 @@ app.controller('indexCtrl', function ($scope) {
         ua.on('registered', function (e) {
             appendLog("INIT PHONE", "Regist success! ");
             $scope.$apply();
+            $scope.is_registed = true;
         });
 
         ua.on('unregistered', function (response, cause) {
-            appendLog("INIT PHONE", "Regist success! ");
+            appendLog("INIT PHONE", "Unregist success! ");
+            $scope.is_registed = false;
             $scope.$apply();
         });
 
@@ -64,5 +68,23 @@ app.controller('indexCtrl', function ($scope) {
 
     };
 
+    $scope.regist = function () {
+        ua.register();
+    }
+
+    $scope.unregist = function () {
+        ua.unregister();
+    }
+
+    $scope.call = function () {
+        var session = ua.invite($scope.othersip, {
+            sessionDescriptionHandlerOptions: {
+                constraints: {
+                    audio: true,
+                    video: false
+                }
+            }
+        });
+    };
 
 });

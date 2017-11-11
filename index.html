@@ -69,7 +69,7 @@
                         </div>
                         <div class="panel-body">
                             <div class="row">
-                                <h3 class="text-danger bg-danger text-center">{{logs[0].message}}</h3>
+                                <h3 class="text-danger bg-danger text-center">Status: </h3>
                             </div>
                             <form class="form-horizontal">
                                 <div class="form-group">
@@ -106,10 +106,31 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default" ng-click="initPhone()"><i class="fa fa-volume-control-phone" ></i> Regist me!</button>
+                                        <button class="btn btn-default" ng-click="initPhone()"><i class="fa fa-cog" ></i> Init me!</button>
+                                        <button class="btn btn-default" ng-click="regist()"><i class="fa fa-volume-control-phone" ></i> Regist me!</button>
+                                        <button class="btn btn-default" ng-click="unregist()"><i class="fa fa-ban" ></i> Unregist me!</button>
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                    </div>
+                                    <div class="col-sm-2">
+
                                     </div>
                                 </div>
                             </form>
+
+                            <div class="regist_success center">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="partnerSIP">Partner SIP</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">SIP</div>
+                                            <input ng-model="othersip" type="text" class="form-control" id="partnerSIP" placeholder="Enter partner's SIP">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" ng-click="call()"><i class="fa fa-phone"></i> Call now</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -202,8 +223,7 @@
                 <div class="col-md-3">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <i class="fa fa-database"></i>
-                            Logging
+                            <i class="fa fa-database"></i> Logging
                         </div>
                         <div class="panel-body" style="height: 300px; overflow: auto">
                             <div class="row">
